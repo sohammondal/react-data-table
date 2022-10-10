@@ -1,7 +1,7 @@
 import { DataCol } from '.'
 
 interface Data {
-  id: string | number
+  id: string
   product: string
   price: string | number
 }
