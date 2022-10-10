@@ -10,4 +10,9 @@ export type DataTableProps<T, K extends keyof T> = {
   columns: Array<DataCol<T, K>>
   showCheckbox?: boolean
   onRowClick?: (rowData: T, rowIndex: number) => void
+  onSelectionChange?: (selectedRows: string[] | 'All') => void
+}
+
+export type DataRow = {
+  id: string
 }
