@@ -1,7 +1,5 @@
 import { createGlobalStyle } from 'styled-components'
 
-import { flexColCenter } from './common.styles'
-
 export const GlobalStyles = createGlobalStyle`
     :root{}
 
@@ -42,11 +40,6 @@ export const GlobalStyles = createGlobalStyle`
     hr{
         margin: 0;
         padding: 0;
-    }
-
-    .app{
-        min-height: 100vh;
-        ${flexColCenter}
     }
 
 `

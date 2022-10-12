@@ -1,7 +1,9 @@
+import { UseInfiniteScrollHookArgs } from 'react-infinite-scroll-hook'
+
 export type DataCol<T, K extends keyof T> = {
   id: K
   label: string
-  numeric: boolean
+  numeric?: boolean
   width?: string
 }
 
@@ -11,6 +13,7 @@ export type DataTableProps<T, K extends keyof T> = {
   showCheckbox?: boolean
   onRowClick?: (rowData: T, rowIndex: number) => void
   onSelectionChange?: (selectedRows: string[] | 'All') => void
+  infiniteScrollProps?: UseInfiniteScrollHookArgs
 }
 
 export type DataRow = {
