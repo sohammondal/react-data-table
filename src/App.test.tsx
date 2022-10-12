@@ -3,8 +3,17 @@ import React from 'react'
 
 import App from './App'
 
-test('renders learn react link', () => {
+it('renders React Data Table heading', () => {
   render(<App />)
-  const linkElement = screen.getByText(/learn react/i)
-  expect(linkElement).toBeInTheDocument()
+  const h1Elem = screen.getByText(/react data table/i)
+  expect(h1Elem).toBeInTheDocument()
+})
+
+it('renders DataTable with Album ID and Album Details as table headers', () => {
+  render(<App />)
+  const albumIdHeader = screen.getByText(/Album ID/i)
+  const albumDetailsHeader = screen.getByText(/Album Details/i)
+
+  expect(albumIdHeader).toBeInTheDocument()
+  expect(albumDetailsHeader).toBeInTheDocument()
 })

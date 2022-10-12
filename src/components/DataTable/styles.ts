@@ -5,6 +5,7 @@ export const Table = styled.table`
   padding: 20px;
   border-radius: 10px;
   box-shadow: #80808070 0px 0px 6px 0px;
+  border-spacing: 0px;
 `
 
 export const THeader = styled.thead``
@@ -15,6 +16,9 @@ export const TRow = styled.tr`
   cursor: pointer;
   text-align: justify;
   box-shadow: 0px 0px 0px 1px rgb(0 0 0 / 10%);
+  :hover {
+    background: rgb(0 0 0 / 10%);
+  }
 `
 
 export const TData = styled.td``
