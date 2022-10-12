@@ -1,13 +1,14 @@
 import axios from 'axios'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 interface URLParams {
   resourceUrl: string
   limit?: number
+  query?: string
 }
 
 export function useJSONPlaceHolderData<T>(
-  { resourceUrl, limit = 10 }: URLParams,
+  { resourceUrl, limit = 10, query = '' }: URLParams,
   dataBuilder: (...args: never[]) => T,
 ) {
   const [data, setData] = useState<T[]>([])
@@ -20,24 +21,61 @@ export function useJSONPlaceHolderData<T>(
     try {
       setLoading(true)
 
-      const { data: respData } = await axios.get(`${resourceUrl}?_page=${page}&_limit=${limit}`)
+      const queryParams = new URLSearchParams({
+        _page: `${page}`,
+        _limit: `${limit}`,
+        ...(query ? { q: query } : {}),
+      }).toString()
 
-      if (!respData.length) {
-        setHasMore(false)
-        return
-      }
+      const { data: respData } = await axios.get(`${resourceUrl}?${queryParams}`)
+
+      if (!respData.length) return setHasMore(false)
 
       const newData: T[] = respData.map(dataBuilder)
 
       setData((data) => [...data, ...newData])
     } catch (error) {
-      console.log(error)
+      console.error(error)
       setError(true)
     } finally {
       setLoading(false)
-      setPage(page + 1)
+      setPage((page) => page + 1)
     }
   }
+
+  const resetState = () => {
+    setPage(1)
+    setData([])
+    setHasMore(true)
+  }
+
+  useEffect(() => {
+    ;(async () => {
+      try {
+        if (!query) return resetState()
+
+        setLoading(true)
+
+        const queryParams = new URLSearchParams({
+          _page: '1',
+          _limit: `${limit}`,
+          ...(query ? { q: query } : {}),
+        }).toString()
+
+        const { data: respData } = await axios.get(`${resourceUrl}?${queryParams}`)
+
+        const newData: T[] = respData.map(dataBuilder)
+
+        setPage(2)
+        setData(newData)
+      } catch (error) {
+        console.error(error)
+        setError(true)
+      } finally {
+        setLoading(false)
+      }
+    })()
+  }, [query])
 
   return {
     data,
