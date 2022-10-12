@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-import { Album, Container } from 'App.styles'
+import { Album, Container, SearchBar } from 'App.styles'
 import { DataTable } from 'components/DataTable'
 import { useJSONPlaceHolderData } from 'hooks/useJSONPlaceHolderData'
 
@@ -15,14 +15,21 @@ function App(): React.ReactElement {
     ),
   })
 
+  const [searchTerm, setSearchTerm] = useState('')
   const { data, hasMore, isLoading, error, loadMore } = useJSONPlaceHolderData<{
     id: string
     album: React.ReactElement
-  }>({ resourceUrl: 'https://jsonplaceholder.typicode.com/photos' }, dataBuilder)
+  }>({ resourceUrl: 'https://jsonplaceholder.typicode.com/photos', query: searchTerm }, dataBuilder)
 
   return (
     <Container>
       <h1>React Data Table</h1>
+      <SearchBar
+        type='text'
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        placeholder='Type to search...'
+      />
       <DataTable
         columns={[
           {

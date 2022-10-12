@@ -14,3 +14,12 @@ export const Album = styled.div`
     margin-right: 10px;
   }
 `
+
+export const SearchBar = styled.input`
+  width: 50%;
+  height: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border: 0;
+  padding: 10px;
+`
