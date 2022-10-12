@@ -1,12 +1,12 @@
 {
   "files": {
-    "main.js": "/react-data-table/static/js/main.9478a9ef.js",
+    "main.js": "/react-data-table/static/js/main.88c2530d.js",
     "static/js/787.501ab689.chunk.js": "/react-data-table/static/js/787.501ab689.chunk.js",
     "index.html": "/react-data-table/index.html",
-    "main.9478a9ef.js.map": "/react-data-table/static/js/main.9478a9ef.js.map",
+    "main.88c2530d.js.map": "/react-data-table/static/js/main.88c2530d.js.map",
     "787.501ab689.chunk.js.map": "/react-data-table/static/js/787.501ab689.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.9478a9ef.js"
+    "static/js/main.88c2530d.js"
   ]
 }
