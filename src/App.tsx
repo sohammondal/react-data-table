@@ -39,8 +39,8 @@ function App(): React.ReactElement {
         onRowClick={console.log}
         onSelectionChange={console.log}
         infiniteScrollProps={{
-          loading: !isLoading,
-          hasNextPage: !hasMore,
+          loading: isLoading,
+          hasNextPage: hasMore,
           onLoadMore: loadMore,
           disabled: error,
           rootMargin: '0px 0px 10px 0px',
