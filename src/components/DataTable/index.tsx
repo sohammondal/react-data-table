@@ -14,10 +14,8 @@ export const DataTable = <T extends DataRow, K extends keyof T>({
   onSelectionChange,
   infiniteScrollProps,
 }: DataTableProps<T, K>) => {
-  const { selectedRowIds, toogleSelectRow, toggleSelectAllRows } = useRowSelection(
-    rows,
-    onSelectionChange,
-  )
+  const { selectedRowIds, toogleSelectRow, toggleSelectAllRows, isAllRowsSelected } =
+    useRowSelection(rows, onSelectionChange)
 
   const [sentryRef] = useInfiniteScroll({
     ...(infiniteScrollProps || ({} as UseInfiniteScrollHookArgs)),
@@ -33,7 +31,7 @@ export const DataTable = <T extends DataRow, K extends keyof T>({
                 <Styled.ItemWrapper>
                   <input
                     type='checkbox'
-                    checked={rows.length === selectedRowIds.length}
+                    checked={isAllRowsSelected}
                     onChange={toggleSelectAllRows}
                     data-testid='select-all-checkbox'
                   />
