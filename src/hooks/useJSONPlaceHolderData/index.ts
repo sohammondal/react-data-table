@@ -10,6 +10,7 @@ interface URLParams {
 export function useJSONPlaceHolderData<T>(
   { resourceUrl, limit = 10, query = '' }: URLParams,
   dataBuilder: (...args: never[]) => T,
+  delayInMs = 0,
 ) {
   const [data, setData] = useState<T[]>([])
   const [page, setPage] = useState(1)
@@ -49,33 +50,39 @@ export function useJSONPlaceHolderData<T>(
     setHasMore(true)
   }
 
+  const searchData = async (query: string) => {
+    try {
+      if (!query) return resetState()
+
+      setLoading(true)
+
+      const queryParams = new URLSearchParams({
+        _page: '1',
+        _limit: `${limit}`,
+        ...(query ? { q: query } : {}),
+      }).toString()
+
+      const { data: respData } = await axios.get(`${resourceUrl}?${queryParams}`)
+
+      const newData: T[] = respData.map(dataBuilder)
+
+      setPage(2)
+      setData(newData)
+    } catch (error) {
+      console.error(error)
+      setError(true)
+    } finally {
+      setLoading(false)
+    }
+  }
+
   useEffect(() => {
-    ;(async () => {
-      try {
-        if (!query) return resetState()
+    const timeoutId = setTimeout(() => searchData(query), delayInMs)
 
-        setLoading(true)
-
-        const queryParams = new URLSearchParams({
-          _page: '1',
-          _limit: `${limit}`,
-          ...(query ? { q: query } : {}),
-        }).toString()
-
-        const { data: respData } = await axios.get(`${resourceUrl}?${queryParams}`)
-
-        const newData: T[] = respData.map(dataBuilder)
-
-        setPage(2)
-        setData(newData)
-      } catch (error) {
-        console.error(error)
-        setError(true)
-      } finally {
-        setLoading(false)
-      }
-    })()
-  }, [query])
+    return () => {
+      clearTimeout(timeoutId)
+    }
+  }, [query, delayInMs])
 
   return {
     data,

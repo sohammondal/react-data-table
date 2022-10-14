@@ -19,7 +19,14 @@ function App(): React.ReactElement {
   const { data, hasMore, isLoading, error, loadMore } = useJSONPlaceHolderData<{
     id: string
     album: React.ReactElement
-  }>({ resourceUrl: 'https://jsonplaceholder.typicode.com/photos', query: searchTerm }, dataBuilder)
+  }>(
+    {
+      resourceUrl: 'https://jsonplaceholder.typicode.com/photos',
+      query: searchTerm,
+    },
+    dataBuilder,
+    1000, // delay search by 1s
+  )
 
   return (
     <Container>
