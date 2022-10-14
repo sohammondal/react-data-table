@@ -1,0 +1,26 @@
+name: Cypress E2E Tests
+on:
+  push:
+    branches:
+      - 'main'
+  workflow_dispatch:
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        uses: borales/actions-yarn@v3.0.0
+        with:
+          cmd: install # will run `yarn install` command
+
+      - name: Cypress run
+        uses: cypress-io/github-action@v4
+        timeout-minutes: 10
+        with:
+          browser: chrome
