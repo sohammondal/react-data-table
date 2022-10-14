@@ -25,7 +25,8 @@
     "lint:fix": "eslint --fix 'src/**/*.{js,jsx,ts,tsx,json}'",
     "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
     "prepare": "husky install",
-    "cm": "git-cz"
+    "cm": "git-cz",
+    "cypress:open": "cypress open"
   },
   "eslintConfig": {
     "extends": [
@@ -49,6 +50,7 @@
     "@commitlint/cli": "^17.1.2",
     "@commitlint/config-conventional": "^17.1.0",
     "@commitlint/cz-commitlint": "^17.1.2",
+    "@testing-library/cypress": "^8.0.3",
     "@types/jest": "^27.0.1",
     "@types/node": "^16.7.13",
     "@types/react": "^18.0.0",
@@ -58,6 +60,7 @@
     "@typescript-eslint/parser": "^5.38.1",
     "babel-plugin-styled-components": "^2.0.7",
     "commitizen": "^4.2.5",
+    "cypress": "^10.10.0",
     "eslint": "^7.15.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^8.5.0",
